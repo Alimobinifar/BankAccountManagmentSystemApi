@@ -6,6 +6,7 @@ namespace BankAccountManagmentSystemApi.Controllers
     [Route("api/account")]
     public class AccountController : ControllerBase
     {
+        // فعلا همینجا کد بزن و فعلا از اینترفیس اینجا استفاده نکن ! 
         public decimal Balance { get; set; }
         public AccountController()
         {
