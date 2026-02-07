@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BankAccountManagmentSystemApi.Models;
+using BankAccountManagmentSystemApi.Services.BankAccountServices;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BankAccountManagmentSystemApi.Controllers
 {
@@ -6,15 +8,21 @@ namespace BankAccountManagmentSystemApi.Controllers
     [Route("api/account")]
     public class AccountController : ControllerBase
     {
-        // فعلا همینجا کد بزن و فعلا از اینترفیس اینجا استفاده نکن ! 
-        public decimal Balance { get; set; }
-        public AccountController()
+        private protected AccountService _servie;
+        public AccountController(AccountService accountService)
         {
+            _servie = accountService;
         }
 
-        public async Task<IActionResult> CreateAccount() 
+        [HttpGet("CreateAccount")]
+        public async Task<IActionResult> CreateAccount([FromBody]AccountModel model) 
         {
-            return Ok("Account created successfully");
+            var respone = await _servie.CreateAccount(model);
+            if (respone)
+            {
+                return Ok("Account has been created successfully");
+            }
+            return BadRequest();
         }
 
         public async Task<IActionResult> UpdateAccount()
