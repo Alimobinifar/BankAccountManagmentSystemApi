@@ -1,5 +1,6 @@
 ﻿using BankAccountManagmentSystemApi.Models;
 using BankAccountManagmentSystemApi.Services.BankAccountServices;
+using BankAccountManagmentSystemApi.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BankAccountManagmentSystemApi.Controllers
@@ -8,29 +9,32 @@ namespace BankAccountManagmentSystemApi.Controllers
     [Route("api/account")]
     public class AccountController : ControllerBase
     {
-        private protected AccountService _servie;
+        private protected AccountService _service;
         public AccountController(AccountService accountService)
         {
-            _servie = accountService;
+            _service = accountService;
         }
 
-        [HttpGet("CreateAccount")]
-        public async Task<IActionResult> CreateAccount([FromBody]AccountModel model) 
+        [HttpPost]
+        public async Task<IActionResult> CreateAccount([FromBody] CreateAccountRequest request)
         {
-            var respone = await _servie.CreateAccount(model);
-            if (respone)
-            {
-                return Ok("Account has been created successfully");
-            }
-            return BadRequest();
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var result = await _service.CreateAccount(request);
+
+            if (!result)
+                return BadRequest("Account creation failed");
+
+            return Ok("Account has been created successfully");
         }
 
-        
+
         // Update Account
         // Show balance
         // Withdraw
         // Deposite
-        
+
         public async Task<IActionResult> UpdateAccount()
         {
             return Ok("Account updated");
