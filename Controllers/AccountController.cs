@@ -25,6 +25,12 @@ namespace BankAccountManagmentSystemApi.Controllers
             return BadRequest();
         }
 
+        
+        // Update Account
+        // Show balance
+        // Withdraw
+        // Deposite
+        
         public async Task<IActionResult> UpdateAccount()
         {
             return Ok("Account updated");

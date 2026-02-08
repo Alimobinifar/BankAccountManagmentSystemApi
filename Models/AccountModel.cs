@@ -1,8 +1,12 @@
-﻿namespace BankAccountManagmentSystemApi.Models
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace BankAccountManagmentSystemApi.Models
 {
     public class AccountModel
     {
-        public int AccountId { get; set; }
+        [Key]
+        public int Id { get; set; }
         public string OwnerName { get; set; }
         public string OwnerFamily {  get; set; }
         public string OwnerContact {  get; set; }
