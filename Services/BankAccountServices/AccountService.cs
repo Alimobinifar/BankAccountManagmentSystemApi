@@ -2,18 +2,20 @@
 using BankAccountManagmentSystemApi.Models;
 using BankAccountManagmentSystemApi.Services.Interfaces;
 using BankAccountManagmentSystemApi.ViewModels;
+using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace BankAccountManagmentSystemApi.Services.BankAccountServices
 {
     public class AccountService : IAccount
     {
         private protected AppDbContext _context;
-        
+
         public AccountService(AppDbContext context)
         {
             _context = context;
         }
-     
+
         public async Task<bool> CreateAccount(CreateAccountRequest request)
         {
             try
@@ -27,10 +29,8 @@ namespace BankAccountManagmentSystemApi.Services.BankAccountServices
                     Balance = request.Balance,
                     CreatedAt = DateTime.Now
                 };
-
                 await _context.Accounts.AddAsync(account);
                 await _context.SaveChangesAsync();
-
                 return true;
             }
             catch (Exception)
@@ -38,6 +38,41 @@ namespace BankAccountManagmentSystemApi.Services.BankAccountServices
                 return false;
             }
         }
+
+        public async Task<bool> UpdateAccount(UpdateAccountDto request)
+        {
+            try
+            {
+                var record = _context.Accounts.Where(x => x.Id == request.recordId).FirstOrDefault();
+                if (record != null)
+                {
+                    record.OwnerName = request.OwnerName;
+                    record.OwnerFamily = request.OwnerFamily;
+                    record.OwnerContact = request.PhoneNumber;
+                    await _context.SaveChangesAsync();
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        public async Task<List<AccountModel>> GetAllAccounts()
+        {
+            try
+            {
+                var response = await _context.Accounts.ToListAsync();
+                return response;
+            }
+            catch(Exception ex)
+            {
+                return new List<AccountModel>();
+            }
+        }
+
 
     }
 }
