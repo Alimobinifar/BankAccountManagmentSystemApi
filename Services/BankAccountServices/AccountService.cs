@@ -1,4 +1,5 @@
 ﻿using BankAccountManagmentSystemApi.Data;
+using BankAccountManagmentSystemApi.Enums;
 using BankAccountManagmentSystemApi.Models;
 using BankAccountManagmentSystemApi.Services.Interfaces;
 using BankAccountManagmentSystemApi.ViewModels;
@@ -59,7 +60,7 @@ namespace BankAccountManagmentSystemApi.Services.BankAccountServices
                 return false;
             }
         }
-
+        
         public async Task<List<AccountModel>> GetAllAccounts()
         {
             try
@@ -67,11 +68,40 @@ namespace BankAccountManagmentSystemApi.Services.BankAccountServices
                 var response = await _context.Accounts.ToListAsync();
                 return response;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return new List<AccountModel>();
             }
         }
+
+        public async Task<ResponseModel<AccountModel>> GetUserAccountsByNationalityCodeAsync(
+            string nationalityCode,
+            int accountType)
+        {
+            ResponseModel<AccountModel> result = new ResponseModel<AccountModel>();
+            try
+            {
+                var query = _context.Accounts
+                    .Where(a => a.OwnerNationalityCode == nationalityCode);
+                if (accountType != 0)
+                {
+                    query = query.Where(a => (int)a.AccountType == accountType);
+                }
+                result.List = await query.ToListAsync();
+                result.Msg = "Accounts retrieved successfully.";
+                result.Error = false;
+                return result;
+            }
+            catch (Exception ex)
+            {
+                result.Msg = ex.Message;
+                result.Error = true;
+                return result;
+            }
+        }
+
+
+
 
 
     }
