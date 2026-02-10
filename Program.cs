@@ -1,5 +1,6 @@
 using BankAccountManagmentSystemApi.Data;
 using BankAccountManagmentSystemApi.Services.BankAccountServices;
+using BankAccountManagmentSystemApi.Services.MainServices;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -21,6 +22,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 builder.Services.AddScoped<AccountService>();
+builder.Services.AddScoped<AuditService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
