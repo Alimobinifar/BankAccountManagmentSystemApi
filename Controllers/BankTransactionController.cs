@@ -2,11 +2,10 @@
 
 namespace BankAccountManagmentSystemApi.Controllers
 {
-    public class BankTransactionController : Controller
+    [ApiController]
+    [Route("api/transaction")]
+    public class BankTransactionController : ControllerBase
     {
-        public IActionResult Index()
-        {
-            return View();
-        }
+        
     }
 }
