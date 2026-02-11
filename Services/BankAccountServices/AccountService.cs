@@ -57,25 +57,25 @@ namespace BankAccountManagmentSystemApi.Services.BankAccountServices
             }
         }
 
-        public async Task<bool> UpdateAccount(UpdateAccountDto request)
-{
-    try
-    {
-        var record = _context.Accounts.Where(x => x.Id == request.recordId).FirstOrDefault();
-        if (record != null)
+        public async Task<bool> UpdateAccount(UpdateAccountRequest request)
         {
-            record.OwnerName = request.OwnerName;
-            record.OwnerFamily = request.OwnerFamily;
-            record.OwnerContact = request.PhoneNumber;
-            await _context.SaveChangesAsync();
-            return true;
-        }
-        return false;
-    }
-    catch (Exception ex)
-    {
-        return false;
-    }
+            try
+            {
+                var record = _context.Accounts.Where(x => x.Id == request.recordId).FirstOrDefault();
+                if (record != null)
+                {
+                    record.OwnerName = request.OwnerName;
+                    record.OwnerFamily = request.OwnerFamily;
+                    record.OwnerContact = request.PhoneNumber;
+                    await _context.SaveChangesAsync();
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            } 
 }
 
 public async Task<List<AccountModel>> GetAllAccounts()

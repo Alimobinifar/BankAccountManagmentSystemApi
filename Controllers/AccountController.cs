@@ -32,7 +32,7 @@ namespace BankAccountManagmentSystemApi.Controllers
 
         [HttpPost]
         [Route("Update")]
-        public async Task<IActionResult> UpdateAccount([FromBody] UpdateAccountDto request)
+        public async Task<IActionResult> UpdateAccount([FromBody] UpdateAccountRequest request)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);

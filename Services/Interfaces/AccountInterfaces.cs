@@ -7,6 +7,6 @@ namespace BankAccountManagmentSystemApi.Services.Interfaces
     public interface IAccount
     {
         public Task<bool> CreateAccount(CreateAccountRequest request);
-        public Task<bool> UpdateAccount(UpdateAccountDto request);
+        public Task<bool> UpdateAccount(UpdateAccountRequest request);
     }
 }

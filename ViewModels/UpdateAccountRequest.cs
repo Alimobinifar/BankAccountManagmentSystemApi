@@ -2,7 +2,7 @@
 
 namespace BankAccountManagmentSystemApi.ViewModels
 {
-    public class UpdateAccountDto
+    public class UpdateAccountRequest
     {
         public int recordId { get; set; }
         public string OwnerName { get; set; }
