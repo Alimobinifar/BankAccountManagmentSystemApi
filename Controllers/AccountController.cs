@@ -57,10 +57,6 @@ namespace BankAccountManagmentSystemApi.Controllers
         }
 
 
-        public async Task<int> x()
-        {
-            return 2;
-        }
         // Get user account by nationality code
 
         // Get user account by id 
