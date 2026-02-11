@@ -2,19 +2,24 @@
 using BankAccountManagmentSystemApi.Enums;
 using BankAccountManagmentSystemApi.Models;
 using BankAccountManagmentSystemApi.Services.Interfaces;
+using BankAccountManagmentSystemApi.Services.MainServices;
 using BankAccountManagmentSystemApi.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
+using System.Text.Json;
 
 namespace BankAccountManagmentSystemApi.Services.BankAccountServices
 {
     public class AccountService : IAccount
     {
+        #region Objects 
         private protected AppDbContext _context;
-
-        public AccountService(AppDbContext context)
+        private protected AuditService _auditService;
+        #endregion
+        public AccountService(AppDbContext context, AuditService auditService)
         {
             _context = context;
+            _auditService = auditService;
         }
 
         public async Task<bool> CreateAccount(CreateAccountRequest request)
@@ -32,6 +37,18 @@ namespace BankAccountManagmentSystemApi.Services.BankAccountServices
                 };
                 await _context.Accounts.AddAsync(account);
                 await _context.SaveChangesAsync();
+
+                AuditLogModel logModel = new AuditLogModel
+                {
+                    UserId = "1",
+                    Action = "CreateUserAccount",
+                    EntityName = "Account",
+                    Details = "Create Account",
+                    EventType = AuditEventType.Success,
+                    CreatedAt = DateTime.UtcNow
+                };
+
+                await _auditService.LogEventAsync(logModel);
                 return true;
             }
             catch (Exception)
@@ -41,64 +58,64 @@ namespace BankAccountManagmentSystemApi.Services.BankAccountServices
         }
 
         public async Task<bool> UpdateAccount(UpdateAccountDto request)
+{
+    try
+    {
+        var record = _context.Accounts.Where(x => x.Id == request.recordId).FirstOrDefault();
+        if (record != null)
         {
-            try
-            {
-                var record = _context.Accounts.Where(x => x.Id == request.recordId).FirstOrDefault();
-                if (record != null)
-                {
-                    record.OwnerName = request.OwnerName;
-                    record.OwnerFamily = request.OwnerFamily;
-                    record.OwnerContact = request.PhoneNumber;
-                    await _context.SaveChangesAsync();
-                    return true;
-                }
-                return false;
-            }
-            catch (Exception ex)
-            {
-                return false;
-            }
+            record.OwnerName = request.OwnerName;
+            record.OwnerFamily = request.OwnerFamily;
+            record.OwnerContact = request.PhoneNumber;
+            await _context.SaveChangesAsync();
+            return true;
         }
-        
-        public async Task<List<AccountModel>> GetAllAccounts()
-        {
-            try
-            {
-                var response = await _context.Accounts.ToListAsync();
-                return response;
-            }
-            catch (Exception ex)
-            {
-                return new List<AccountModel>();
-            }
-        }
+        return false;
+    }
+    catch (Exception ex)
+    {
+        return false;
+    }
+}
 
-        public async Task<ResponseModel<AccountModel>> GetUserAccountsByNationalityCodeAsync(
-            string nationalityCode,
-            int accountType)
+public async Task<List<AccountModel>> GetAllAccounts()
+{
+    try
+    {
+        var response = await _context.Accounts.ToListAsync();
+        return response;
+    }
+    catch (Exception ex)
+    {
+        return new List<AccountModel>();
+    }
+}
+
+public async Task<ResponseModel<AccountModel>> GetUserAccountsByNationalityCodeAsync(
+    string nationalityCode,
+    int accountType)
+{
+    ResponseModel<AccountModel> result = new ResponseModel<AccountModel>();
+    try
+    {
+        var query = _context.Accounts
+            .Where(a => a.OwnerNationalityCode == nationalityCode);
+        if (accountType != 0)
         {
-            ResponseModel<AccountModel> result = new ResponseModel<AccountModel>();
-            try
-            {
-                var query = _context.Accounts
-                    .Where(a => a.OwnerNationalityCode == nationalityCode);
-                if (accountType != 0)
-                {
-                    query = query.Where(a => (int)a.AccountType == accountType);
-                }
-                result.List = await query.ToListAsync();
-                result.Msg = "Accounts retrieved successfully.";
-                result.Error = false;
-                return result;
-            }
-            catch (Exception ex)
-            {
-                result.Msg = ex.Message;
-                result.Error = true;
-                return result;
-            }
+            query = query.Where(a => (int)a.AccountType == accountType);
         }
+        result.List = await query.ToListAsync();
+        result.Msg = "Accounts retrieved successfully.";
+        result.Error = false;
+        return result;
+    }
+    catch (Exception ex)
+    {
+        result.Msg = ex.Message;
+        result.Error = true;
+        return result;
+    }
+}
 
 
 
