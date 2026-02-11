@@ -56,6 +56,11 @@ namespace BankAccountManagmentSystemApi.Controllers
             return BadRequest("No record found ... ");
         }
 
+
+        public async Task<int> x()
+        {
+            return 2;
+        }
         // Get user account by nationality code
 
         // Get user account by id 
