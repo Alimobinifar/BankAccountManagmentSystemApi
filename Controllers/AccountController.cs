@@ -65,7 +65,6 @@ namespace BankAccountManagmentSystemApi.Controllers
         // Account type => Enums (Private, Moshtarak)
 
         // Get accounts by type
-        // test 
     }
     
 }
