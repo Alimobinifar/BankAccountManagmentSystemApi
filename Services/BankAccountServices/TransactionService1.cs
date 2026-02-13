@@ -10,13 +10,13 @@ using System.Text.Json;
 
 namespace BankAccountManagmentSystemApi.Services.BankAccountServices
 {
-    public class AccountService : IAccount
+    public class TransactionService1 : IAccount
     {
         #region Objects 
         private protected AppDbContext _context;
         private protected AuditService _auditService;
         #endregion
-        public AccountService(AppDbContext context, AuditService auditService)
+        public TransactionService1(AppDbContext context, AuditService auditService)
         {
             _context = context;
             _auditService = auditService;

@@ -9,8 +9,8 @@ namespace BankAccountManagmentSystemApi.Controllers
     [Route("api/account")]
     public class BankTransactionController1 : ControllerBase
     {
-        private protected AccountService _service;
-        public BankTransactionController1(AccountService accountService)
+        private protected TransactionService1 _service;
+        public BankTransactionController1(TransactionService1 accountService)
         {
             _service = accountService;
         }

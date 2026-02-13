@@ -8,8 +8,8 @@ namespace BankAccountManagmentSystemApi.Controllers
     [Route("api/transaction")]
     public class BankTransactionController2 : ControllerBase
     {
-        private protected AccountService1 _service;
-        public BankTransactionController2(AccountService1 accountService)
+        private protected TransactionService2 _service;
+        public BankTransactionController2(TransactionService2 accountService)
         {
             _service = accountService;
         }

@@ -21,8 +21,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();
-builder.Services.AddScoped<AccountService>();
-builder.Services.AddScoped<AccountService1>();
+builder.Services.AddScoped<TransactionService1>();
+builder.Services.AddScoped<TransactionService2>();
 builder.Services.AddScoped<AuditService>();
 var app = builder.Build();
 

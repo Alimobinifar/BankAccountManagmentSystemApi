@@ -6,11 +6,11 @@ using BankAccountManagmentSystemApi.ViewModels;
 using Microsoft.EntityFrameworkCore.Query.Internal;
 namespace BankAccountManagmentSystemApi.Services.BankAccountServices
 {
-    public class AccountService1 : IAccont1
+    public class TransactionService2 : IAccont1
     {
 
         private protected AppDbContext _context;
-        public AccountService1(AppDbContext context)
+        public TransactionService2(AppDbContext context)
         {
             _context = context;
           
