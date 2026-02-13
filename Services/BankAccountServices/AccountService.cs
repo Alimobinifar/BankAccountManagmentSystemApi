@@ -61,12 +61,12 @@ namespace BankAccountManagmentSystemApi.Services.BankAccountServices
         {
             try
             {
-                var record = _context.Accounts.Where(x => x.Id == request.recordId).FirstOrDefault();
+                var record = _context.Accounts.Where(x => x.Id == request.Id).FirstOrDefault();
                 if (record != null)
                 {
                     record.OwnerName = request.OwnerName;
                     record.OwnerFamily = request.OwnerFamily;
-                    record.OwnerContact = request.PhoneNumber;
+                    record.OwnerContact = request.OwnerContact;
                     await _context.SaveChangesAsync();
                     return true;
                 }

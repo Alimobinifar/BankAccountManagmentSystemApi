@@ -10,6 +10,8 @@
         Credit = 6,            // حساب اعتباری
         Corporate = 7,         // حساب حقوقی
         Joint = 8,             // حساب مشترک
-        ForeignCurrency = 9    // حساب ارزی
+        ForeignCurrency = 9,   // حساب ارزی  
+ 
+
     }
 }

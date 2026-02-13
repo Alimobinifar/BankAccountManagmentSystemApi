@@ -4,9 +4,10 @@ namespace BankAccountManagmentSystemApi.ViewModels
 {
     public class UpdateAccountRequest
     {
-        public int recordId { get; set; }
+        public int Id { get; set; }
         public string OwnerName { get; set; }
         public string OwnerFamily { get; set; }
-        public string PhoneNumber { get; set; }
+        public string OwnerContact { get; set; }
+        
     }
 }

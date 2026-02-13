@@ -5,7 +5,7 @@ using System;
 
 namespace BankAccountManagmentSystemApi.Services.MainServices
 {
-    public class AuditService 
+    public class AuditService
     {
         private readonly AppDbContext _context;
         public AuditService(AppDbContext context)

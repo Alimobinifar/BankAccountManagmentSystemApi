@@ -22,6 +22,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 builder.Services.AddScoped<AccountService>();
+builder.Services.AddScoped<AccountService1>();
 builder.Services.AddScoped<AuditService>();
 var app = builder.Build();
 
