@@ -26,8 +26,13 @@ namespace BankAccountManagmentSystemApi.Services.BankAccountServices
 
             var transaction = new AccountModel
             {
-                AccountId = request.Id,
+               
                 Amount = request.Amount,
+                Balance = account.Balance,
+                OwnerContact = account.OwnerContact,
+                OwnerNationalityCode = account.OwnerNationalityCode,
+                OwnerName = account.OwnerName,
+                OwnerFamily = account.OwnerFamily,
 
             };
 
@@ -51,9 +56,13 @@ namespace BankAccountManagmentSystemApi.Services.BankAccountServices
 
             var transaction = new AccountModel
             {
-                AccountId = account.Id,
                 Amount = request.Amount,
-              
+                Balance = account.Balance,
+                OwnerContact = account.OwnerContact,
+                OwnerNationalityCode = account.OwnerNationalityCode,
+                OwnerName = account.OwnerName,
+                OwnerFamily = account.OwnerFamily,
+
             };
 
             await _context.Accounts.AddAsync(transaction);
