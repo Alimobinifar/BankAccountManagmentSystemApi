@@ -8,5 +8,7 @@ namespace BankAccountManagmentSystemApi.Data
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
         public DbSet<AccountModel> Accounts => Set<AccountModel>();
         public DbSet<AuditLogModel> AuditLogs => Set<AuditLogModel>();
+
+    
     }
 }
