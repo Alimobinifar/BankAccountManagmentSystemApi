@@ -5,7 +5,7 @@
 namespace BankAccountManagmentSystemApi.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate2 : Migration
+    public partial class AddUsersAndTransactionsTables : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

@@ -2,6 +2,7 @@ using BankAccountManagmentSystemApi.Data;
 using BankAccountManagmentSystemApi.Services.BankAccountServices;
 using BankAccountManagmentSystemApi.Services.MainServices;
 using Microsoft.EntityFrameworkCore;
+using BankAccountManagmentSystemApi.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +23,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 builder.Services.AddScoped<AccountService>();
+builder.Services.AddScoped<ITransactionService, TransactionService>();
 builder.Services.AddScoped<AuditService>();
 var app = builder.Build();
 

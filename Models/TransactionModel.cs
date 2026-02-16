@@ -1,7 +1,13 @@
-﻿namespace BankAccountManagmentSystemApi.Models
+﻿using BankAccountManagmentSystemApi.Enums;
+
+namespace BankAccountManagmentSystemApi.Models
 {
     public class TransactionModel:BaseModel
     {
-        public int AccountId { get; set; }
+        public int Id { get; set; }
+        public int UserId { get; set; }
+        public decimal Amount { get; set; }
+        public TransactionType TransactionType { get; set; }
+        
     }
 }
