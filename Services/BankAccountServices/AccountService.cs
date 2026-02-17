@@ -10,7 +10,7 @@ using System.Text.Json;
 
 namespace BankAccountManagmentSystemApi.Services.BankAccountServices
 {
-    public class AccountService : IAccount
+    public class AccountService : IAccountService
     {
         #region Objects 
         private protected AppDbContext _context;
@@ -26,6 +26,7 @@ namespace BankAccountManagmentSystemApi.Services.BankAccountServices
         {
             try
             {
+                // ثبت تراکنش
                 var account = new AccountModel
                 {
                     OwnerName = request.OwnerName,
@@ -58,68 +59,69 @@ namespace BankAccountManagmentSystemApi.Services.BankAccountServices
         }
 
         public async Task<bool> UpdateAccount(UpdateAccountDto request)
-{
-    try
-    {
-        var record = _context.Accounts.Where(x => x.Id == request.recordId).FirstOrDefault();
-        if (record != null)
         {
-            record.OwnerName = request.OwnerName;
-            record.OwnerFamily = request.OwnerFamily;
-            record.OwnerContact = request.PhoneNumber;
-            await _context.SaveChangesAsync();
-            return true;
+            try
+            {
+                // پیدا کردن کاربر از جدول ID
+                var record = _context.Accounts.Where(x => x.Id == request.recordId).FirstOrDefault();
+                if (record != null)
+                {
+                    record.OwnerName = request.OwnerName;
+                    record.OwnerFamily = request.OwnerFamily;
+                    record.OwnerContact = request.PhoneNumber;
+                    await _context.SaveChangesAsync();
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
-        return false;
-    }
-    catch (Exception ex)
-    {
-        return false;
-    }
-}
 
-public async Task<List<AccountModel>> GetAllAccounts()
-{
-    try
-    {
-        var response = await _context.Accounts.ToListAsync();
-        return response;
-    }
-    catch (Exception ex)
-    {
-        return new List<AccountModel>();
-    }
-}
-
-public async Task<ResponseModel<AccountModel>> GetUserAccountsByNationalityCodeAsync(
-    string nationalityCode,
-    int accountType)
-{
-    ResponseModel<AccountModel> result = new ResponseModel<AccountModel>();
-    try
-    {
-        var query = _context.Accounts
-            .Where(a => a.OwnerNationalityCode == nationalityCode);
-        if (accountType != 0)
+        public async Task<List<AccountModel>> GetAllAccounts()
         {
-            query = query.Where(a => (int)a.AccountType == accountType);
+            try
+            {
+                var response = await _context.Accounts.ToListAsync();
+                return response;
+            }
+            catch (Exception ex)
+            {
+                return new List<AccountModel>();
+            }
         }
-        result.List = await query.ToListAsync();
-        result.Msg = "Accounts retrieved successfully.";
-        result.Error = false;
-        return result;
+
+        public async Task<ResponseModel<AccountModel>> GetUserAccountsByNationalityCodeAsync(
+        string nationalityCode,
+         int accountType)
+        {
+            ResponseModel<AccountModel> result = new ResponseModel<AccountModel>();
+            try
+            {
+                var query = _context.Accounts
+                    .Where(a => a.OwnerNationalityCode == nationalityCode);
+                if (accountType != 0)
+                {
+                    query = query.Where(a => (int)a.AccountType == accountType);
+                }
+                result.List = await query.ToListAsync();
+                result.Msg = "Accounts retrieved successfully.";
+                result.Error = false;
+                return result;
+            }
+            catch (Exception ex)
+            {
+                result.Msg = ex.Message;
+                result.Error = true;
+                return result;
+            }
+        }
+
+
+
     }
-    catch (Exception ex)
-    {
-        result.Msg = ex.Message;
-        result.Error = true;
-        return result;
-    }
-}
 
-
-
-
-
-    }
+    
 }
