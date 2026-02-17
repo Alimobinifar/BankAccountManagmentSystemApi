@@ -84,8 +84,8 @@ namespace BankAccountManagmentSystemApi.Services.BankAccountServices
         {
             try
             {
-                var response = await _context.Accounts.ToListAsync();
-                return response;
+                return await _context.Accounts.AsNoTracking().ToListAsync();
+                
             }
             catch (Exception ex)
             {
