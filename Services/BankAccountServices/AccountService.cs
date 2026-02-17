@@ -34,7 +34,9 @@ namespace BankAccountManagmentSystemApi.Services.BankAccountServices
                     OwnerContact = request.OwnerContact,
                     OwnerNationalityCode = request.OwnerNationalityCode,
                     Balance = request.Balance,
-                    CreatedAt = DateTime.Now
+                    CreatedAt = DateTime.Now,
+                    AccountType = request.BankAccountType
+
                 };
                 await _context.Accounts.AddAsync(account);
                 await _context.SaveChangesAsync();
@@ -62,7 +64,6 @@ namespace BankAccountManagmentSystemApi.Services.BankAccountServices
         {
             try
             {
-                // پیدا کردن کاربر از جدول ID
                 var record = _context.Accounts.Where(x => x.Id == request.recordId).FirstOrDefault();
                 if (record != null)
                 {
@@ -84,8 +85,8 @@ namespace BankAccountManagmentSystemApi.Services.BankAccountServices
         {
             try
             {
-                return await _context.Accounts.AsNoTracking().ToListAsync();
-                
+                var response = await _context.Accounts.ToListAsync();
+                return response;
             }
             catch (Exception ex)
             {
@@ -94,8 +95,8 @@ namespace BankAccountManagmentSystemApi.Services.BankAccountServices
         }
 
         public async Task<ResponseModel<AccountModel>> GetUserAccountsByNationalityCodeAsync(
-        string nationalityCode,
-         int accountType)
+            string nationalityCode,
+            int accountType)
         {
             ResponseModel<AccountModel> result = new ResponseModel<AccountModel>();
             try

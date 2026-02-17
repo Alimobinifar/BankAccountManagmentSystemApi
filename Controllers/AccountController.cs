@@ -57,16 +57,28 @@ namespace BankAccountManagmentSystemApi.Controllers
             }
             return BadRequest("No record found ... ");
         }
+        [HttpGet]
+        [Route("NationalityCodeAndAccountType")]
+        public async Task<IActionResult> GetUserAccountsByNationalityCodeAsync([FromQuery] string nationalityCode, [FromQuery] int accountType)
+        {
+            var response = await _service.GetUserAccountsByNationalityCodeAsync(nationalityCode, accountType);
+
+            if (response != null && !response.Error)
+                return Ok(response);
+
+            return BadRequest(response?.Msg ?? "No record found ...");
+        }
+
 
         // Get user account by nationality code
 
         // Get user account by id 
 
         // Disable Account => Add a isActive to medel (Inheritance ! (Generic))
-        
+
         // Account type => Enums (Private, Moshtarak)
 
         // Get accounts by type
     }
-    
+
 }
