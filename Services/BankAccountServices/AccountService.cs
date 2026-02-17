@@ -10,7 +10,7 @@ using System.Text.Json;
 
 namespace BankAccountManagmentSystemApi.Services.BankAccountServices
 {
-    public class AccountService : IAccount
+    public class AccountService : IAccountService
     {
         #region Objects 
         private protected AppDbContext _context;
@@ -26,6 +26,7 @@ namespace BankAccountManagmentSystemApi.Services.BankAccountServices
         {
             try
             {
+                // ثبت تراکنش
                 var account = new AccountModel
                 {
                     OwnerName = request.OwnerName,

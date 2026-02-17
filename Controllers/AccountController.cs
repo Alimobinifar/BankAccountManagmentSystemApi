@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BankAccountManagmentSystemApi.Controllers
 {
+    // Post : account
     [ApiController]
     [Route("api/account")]
     public class AccountController : ControllerBase
@@ -15,6 +16,7 @@ namespace BankAccountManagmentSystemApi.Controllers
             _service = accountService;
         }
 
+        // Post : Create 
         [HttpPost]
         [Route("Create")]
         public async Task<IActionResult> CreateAccount([FromBody] CreateAccountRequest request)
@@ -29,7 +31,7 @@ namespace BankAccountManagmentSystemApi.Controllers
 
             return Ok("Account has been created successfully");
         }
-
+        // Post : Update
         [HttpPost]
         [Route("Update")]
         public async Task<IActionResult> UpdateAccount([FromBody] UpdateAccountDto request)
@@ -43,7 +45,7 @@ namespace BankAccountManagmentSystemApi.Controllers
 
             return Ok("Account has been updated successfully");
         }
-
+        // Post : GetAll
         [HttpGet]
         [Route("GetAll")]
         public async Task<IActionResult> GetAllAccounts()
