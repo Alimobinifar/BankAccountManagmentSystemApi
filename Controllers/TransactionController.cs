@@ -18,11 +18,9 @@ namespace BankAccountManagmentSystemApi.Controllers
             _transactionService = transactionService;
         }
 
-        // POST: Deposit
         [HttpPost("Deposit")]
         public async Task<IActionResult> Deposit([FromBody] TransactionDto dto)
         {
-            // connect to TransactionService
             var result = await _transactionService.Deposit(dto);
             if (!result)
                 return BadRequest("Deposit failed. User not found.");
@@ -31,11 +29,9 @@ namespace BankAccountManagmentSystemApi.Controllers
         } 
 
 
-        // POST : Withdrow
         [HttpPost("Withdraw")]
         public async Task<IActionResult> Withdraw([FromBody] TransactionDto dto)
         {
-            // connect to TransactionService
             var result = await _transactionService.Withdraw(dto);
             if (!result)
                 return BadRequest("Withdrawal failed. Either user not found or insufficient balance.");

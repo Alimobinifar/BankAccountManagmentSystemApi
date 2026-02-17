@@ -11,17 +11,21 @@ namespace BankAccountManagmentSystemApi.Services.BankAccountServices
     public class TransactionService : ITransactionService
     {
         private readonly AppDbContext _Context;
+
         public TransactionService (AppDbContext context)
         {
             _Context = context;
         }
+
+
+        // کدوم حساب ؟ اینجا حسابی نداره ! 
         public async Task<bool> Deposit(TransactionDto transactionDto)
         {
             // پیدا کردن کاربر از جدول Users
             var user = await _Context.users.FindAsync(transactionDto.UserId);
             if (user == null) return false;
 
-            // بروزرسانی موجودی
+            // بروزرسانی موجودیS
             user.Balance += transactionDto.Amount;
 
             // ثبت تراکنش
@@ -38,18 +42,16 @@ namespace BankAccountManagmentSystemApi.Services.BankAccountServices
 
             return true;
         }
+
         public async Task<bool> Withdraw(TransactionDto transactionDto)
         {
-            // پیدا کردن کاربر از جدول Users
             var user = await _Context.users.FindAsync(transactionDto.UserId);
             if (user == null) return false;
 
-            // بررسی موجودی کافی
             if (user.Balance < transactionDto.Amount) return false;
 
             user.Balance -= transactionDto.Amount;
 
-            // ثبت تراکنش
             var transaction = new TransactionModel
             {
                 UserId = transactionDto.UserId,

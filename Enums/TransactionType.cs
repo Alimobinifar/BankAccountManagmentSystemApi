@@ -2,8 +2,8 @@
 {
     public enum TransactionType
     {
-        Deposit = 1,   // واریزی
-        Withdrow = 2,  // برداشت
+        Deposit = 1,  
+        Withdrow = 2,  
      
     }
 }

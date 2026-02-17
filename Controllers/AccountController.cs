@@ -15,8 +15,7 @@ namespace BankAccountManagmentSystemApi.Controllers
         {
             _service = accountService;
         }
-
-        // Post : Create 
+        
         [HttpPost]
         [Route("Create")]
         public async Task<IActionResult> CreateAccount([FromBody] CreateAccountRequest request)
@@ -31,7 +30,7 @@ namespace BankAccountManagmentSystemApi.Controllers
 
             return Ok("Account has been created successfully");
         }
-        // Post : Update
+        
         [HttpPost]
         [Route("Update")]
         public async Task<IActionResult> UpdateAccount([FromBody] UpdateAccountDto request)
@@ -45,7 +44,7 @@ namespace BankAccountManagmentSystemApi.Controllers
 
             return Ok("Account has been updated successfully");
         }
-        // Post : GetAll
+
         [HttpGet]
         [Route("GetAll")]
         public async Task<IActionResult> GetAllAccounts()
@@ -57,6 +56,7 @@ namespace BankAccountManagmentSystemApi.Controllers
             }
             return BadRequest("No record found ... ");
         }
+
         [HttpGet]
         [Route("NationalityCodeAndAccountType")]
         public async Task<IActionResult> GetUserAccountsByNationalityCodeAsync([FromQuery] string nationalityCode, [FromQuery] int accountType)
@@ -68,17 +68,6 @@ namespace BankAccountManagmentSystemApi.Controllers
 
             return BadRequest(response?.Msg ?? "No record found ...");
         }
-
-
-        // Get user account by nationality code
-
-        // Get user account by id 
-
-        // Disable Account => Add a isActive to medel (Inheritance ! (Generic))
-
-        // Account type => Enums (Private, Moshtarak)
-
-        // Get accounts by type
     }
 
 }
