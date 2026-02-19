@@ -11,10 +11,10 @@ namespace BankAccountManagmentSystemApi.Models
         public int Id { get; set; }
         [JsonPropertyName("AccountType")]
         public BankAccountType AccountType { get; set; }
-        public string OwnerName { get; set; }
-        public string OwnerFamily { get; set; }
-        public string OwnerContact { get; set; }
-        public string OwnerNationalityCode { get; set; }
+
+        public User User { get; set; }
+        public int UserId { get; set; }
+
         public decimal Balance { get; set; }
     }
 }

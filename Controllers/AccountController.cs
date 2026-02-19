@@ -57,17 +57,17 @@ namespace BankAccountManagmentSystemApi.Controllers
             return BadRequest("No record found ... ");
         }
 
-        [HttpGet]
-        [Route("NationalityCodeAndAccountType")]
-        public async Task<IActionResult> GetUserAccountsByNationalityCodeAsync([FromQuery] string nationalityCode, [FromQuery] int accountType)
-        {
-            var response = await _service.GetUserAccountsByNationalityCodeAsync(nationalityCode, accountType);
+        //[HttpGet]
+        //[Route("NationalityCodeAndAccountType")]
+        //public async Task<IActionResult> GetUserAccountsByNationalityCodeAsync([FromQuery] string nationalityCode, [FromQuery] int accountType)
+        //{
+        //    var response = await _service.GetUserAccountsByNationalityCodeAsync(nationalityCode, accountType);
 
-            if (response != null && !response.Error)
-                return Ok(response);
+        //    if (response != null && !response.Error)
+        //        return Ok(response);
 
-            return BadRequest(response?.Msg ?? "No record found ...");
-        }
+        //    return BadRequest(response?.Msg ?? "No record found ...");
+        //}
     }
 
 }
