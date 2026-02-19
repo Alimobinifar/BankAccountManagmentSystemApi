@@ -29,10 +29,7 @@ namespace BankAccountManagmentSystemApi.Services.BankAccountServices
                 // ثبت تراکنش
                 var account = new AccountModel
                 {
-                    OwnerName = request.OwnerName,
-                    OwnerFamily = request.OwnerFamily,
-                    OwnerContact = request.OwnerContact,
-                    OwnerNationalityCode = request.OwnerNationalityCode,
+                    UserId = request.UserId,
                     Balance = request.Balance,
                     CreatedAt = DateTime.Now,
                     AccountType = request.BankAccountType
@@ -67,9 +64,7 @@ namespace BankAccountManagmentSystemApi.Services.BankAccountServices
                 var record = _context.Accounts.Where(x => x.Id == request.recordId).FirstOrDefault();
                 if (record != null)
                 {
-                    record.OwnerName = request.OwnerName;
-                    record.OwnerFamily = request.OwnerFamily;
-                    record.OwnerContact = request.PhoneNumber;
+                   
                     await _context.SaveChangesAsync();
                     return true;
                 }
@@ -94,31 +89,31 @@ namespace BankAccountManagmentSystemApi.Services.BankAccountServices
             }
         }
 
-        public async Task<ResponseModel<AccountModel>> GetUserAccountsByNationalityCodeAsync(
-            string nationalityCode,
-            int accountType)
-        {
-            ResponseModel<AccountModel> result = new ResponseModel<AccountModel>();
-            try
-            {
-                var query = _context.Accounts
-                    .Where(a => a.OwnerNationalityCode == nationalityCode);
-                if (accountType != 0)
-                {
-                    query = query.Where(a => (int)a.AccountType == accountType);
-                }
-                result.List = await query.ToListAsync();
-                result.Msg = "Accounts retrieved successfully.";
-                result.Error = false;
-                return result;
-            }
-            catch (Exception ex)
-            {
-                result.Msg = ex.Message;
-                result.Error = true;
-                return result;
-            }
-        }
+        //public async Task<ResponseModel<AccountModel>> GetUserAccountsByNationalityCodeAsync(
+        //    string nationalityCode,
+        //    int accountType)
+        //{
+        //    ResponseModel<AccountModel> result = new ResponseModel<AccountModel>();
+        //    try
+        //    {
+        //        var query = _context.Accounts
+        //            .Where(a => a.OwnerNationalityCode == nationalityCode);
+        //        if (accountType != 0)
+        //        {
+        //            query = query.Where(a => (int)a.AccountType == accountType);
+        //        }
+        //        result.List = await query.ToListAsync();
+        //        result.Msg = "Accounts retrieved successfully.";
+        //        result.Error = false;
+        //        return result;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        result.Msg = ex.Message;
+        //        result.Error = true;
+        //        return result;
+        //    }
+        //}
 
 
 

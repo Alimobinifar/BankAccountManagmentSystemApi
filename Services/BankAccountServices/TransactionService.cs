@@ -22,11 +22,11 @@ namespace BankAccountManagmentSystemApi.Services.BankAccountServices
         public async Task<bool> Deposit(TransactionDto transactionDto)
         {
             // پیدا کردن کاربر از جدول Users
-            var user = await _Context.users.FindAsync(transactionDto.UserId);
+            var user = await _Context.Users.FindAsync(transactionDto.UserId);
             if (user == null) return false;
 
             // بروزرسانی موجودیS
-            user.Balance += transactionDto.Amount;
+            //user.Balance += transactionDto.Amount;
 
             // ثبت تراکنش
             var transaction = new TransactionModel
@@ -45,12 +45,12 @@ namespace BankAccountManagmentSystemApi.Services.BankAccountServices
 
         public async Task<bool> Withdraw(TransactionDto transactionDto)
         {
-            var user = await _Context.users.FindAsync(transactionDto.UserId);
+            var user = await _Context.Users.FindAsync(transactionDto.UserId);
             if (user == null) return false;
 
-            if (user.Balance < transactionDto.Amount) return false;
+            //if (user.Balance < transactionDto.Amount) return false;
 
-            user.Balance -= transactionDto.Amount;
+            //user.Balance -= transactionDto.Amount;
 
             var transaction = new TransactionModel
             {
