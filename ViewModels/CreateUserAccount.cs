@@ -1,11 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace BankAccountManagmentSystemApi.Models
+﻿namespace BankAccountManagmentSystemApi.ViewModels
 {
-    public class User : BaseModel
+    public class CreateUserAccount
     {
-        [Key]
         public int UserID { get; set; }
         public string Name { get; set; }
         public string Family { get; set; }
