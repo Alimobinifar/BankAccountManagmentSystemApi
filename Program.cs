@@ -18,8 +18,9 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 builder.Services.AddScoped<AccountService>();
-builder.Services.AddScoped<ITransactionService, TransactionService>();
+builder.Services.AddScoped<TransactionService>();
 builder.Services.AddScoped<AuditService>();
+builder.Services.AddScoped<UserSerivce>();
 var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {

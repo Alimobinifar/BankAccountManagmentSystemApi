@@ -1,10 +1,11 @@
 ﻿using BankAccountManagmentSystemApi.Enums;
+using System.ComponentModel.DataAnnotations;
 
 namespace BankAccountManagmentSystemApi.Models
 {
     public class TransactionModel:BaseModel
     {
-        public int Id { get; set; }
+        [Key]
         public int UserId { get; set; }
         public decimal Amount { get; set; }
         public TransactionType TransactionType { get; set; }
