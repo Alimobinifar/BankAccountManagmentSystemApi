@@ -4,16 +4,17 @@ using BankAccountManagmentSystemApi.Services.Interfaces;
 using BankAccountManagmentSystemApi.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using BankAccountManagmentSystemApi.Services.BankAccountServices;
 
 namespace BankAccountManagmentSystemApi.Controllers
 {
     [ApiController]
-    [Route("api/transaction")]
+    [Route("Api/Transaction")]
     public class TransactionController : ControllerBase
     {
-        private readonly ITransactionService _transactionService;
+        private protected TransactionService _transactionService;
 
-        public TransactionController(ITransactionService transactionService)
+        public TransactionController(TransactionService transactionService)
         {
             _transactionService = transactionService;
         }

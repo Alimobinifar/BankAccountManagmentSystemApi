@@ -57,14 +57,14 @@ namespace BankAccountManagmentSystemApi.Services.BankAccountServices
             }
         }
 
-        public async Task<bool> UpdateAccount(UpdateAccountDto request)
+        public async Task<bool> UpdateAccount(UpdateAccountRequest request)
         {
             try
             {
                 var record = _context.Accounts.Where(x => x.Id == request.recordId).FirstOrDefault();
                 if (record != null)
                 {
-                   
+
                     await _context.SaveChangesAsync();
                     return true;
                 }
@@ -88,36 +88,36 @@ namespace BankAccountManagmentSystemApi.Services.BankAccountServices
                 return new List<AccountModel>();
             }
         }
-
-        //public async Task<ResponseModel<AccountModel>> GetUserAccountsByNationalityCodeAsync(
-        //    string nationalityCode,
-        //    int accountType)
-        //{
-        //    ResponseModel<AccountModel> result = new ResponseModel<AccountModel>();
-        //    try
-        //    {
-        //        var query = _context.Accounts
-        //            .Where(a => a.OwnerNationalityCode == nationalityCode);
-        //        if (accountType != 0)
-        //        {
-        //            query = query.Where(a => (int)a.AccountType == accountType);
-        //        }
-        //        result.List = await query.ToListAsync();
-        //        result.Msg = "Accounts retrieved successfully.";
-        //        result.Error = false;
-        //        return result;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        result.Msg = ex.Message;
-        //        result.Error = true;
-        //        return result;
-        //    }
-        //}
+        public async Task<ResponseModel<AccountModel>> GetAccountsByUserIdAsync(
+           int UserId,
+           int accountType)
+        {
+            ResponseModel<AccountModel> result = new ResponseModel<AccountModel>();
+            try
+            {
+                var query = _context.Accounts
+                    .Where(a => a.UserId == UserId);
+                if (accountType != 0)
+                {
+                    query = query.Where(a => (int)a.AccountType == accountType);
+                }
+                result.List = await query.ToListAsync();
+                result.Msg = "Accounts retrieved successfully.";
+                result.Error = false;
+                return result;
+            }
+            catch (Exception ex)
+            {
+                result.Msg = ex.Message;
+                result.Error = true;
+                return result;
+            }
 
 
+
+
+
+        }
 
     }
-
-    
 }

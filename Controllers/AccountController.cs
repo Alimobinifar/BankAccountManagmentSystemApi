@@ -7,7 +7,7 @@ namespace BankAccountManagmentSystemApi.Controllers
 {
     // Post : account
     [ApiController]
-    [Route("api/account")]
+    [Route("Api/Account")]
     public class AccountController : ControllerBase
     {
         private protected AccountService _service;
@@ -33,7 +33,7 @@ namespace BankAccountManagmentSystemApi.Controllers
         
         [HttpPost]
         [Route("Update")]
-        public async Task<IActionResult> UpdateAccount([FromBody] UpdateAccountDto request)
+        public async Task<IActionResult> UpdateAccount([FromBody] UpdateAccountRequest request)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -57,17 +57,17 @@ namespace BankAccountManagmentSystemApi.Controllers
             return BadRequest("No record found ... ");
         }
 
-        //[HttpGet]
-        //[Route("NationalityCodeAndAccountType")]
-        //public async Task<IActionResult> GetUserAccountsByNationalityCodeAsync([FromQuery] string nationalityCode, [FromQuery] int accountType)
-        //{
-        //    var response = await _service.GetUserAccountsByNationalityCodeAsync(nationalityCode, accountType);
+        [HttpGet]
+        [Route("GetAccountsByUserIdAsync")]
+        public async Task<IActionResult> GetAccountsByUserIdAsync([FromQuery] int UserId, [FromQuery] int accountType)
+        {
+            var response = await _service.GetAccountsByUserIdAsync(UserId, accountType);
 
-        //    if (response != null && !response.Error)
-        //        return Ok(response);
+            if (response != null && !response.Error)
+                return Ok(response);
 
-        //    return BadRequest(response?.Msg ?? "No record found ...");
-        //}
+            return BadRequest(response?.Msg ?? "No record found ...");
+        }
     }
 
 }
