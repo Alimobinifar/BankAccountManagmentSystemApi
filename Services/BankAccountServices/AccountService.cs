@@ -76,18 +76,28 @@ namespace BankAccountManagmentSystemApi.Services.BankAccountServices
             }
         }
 
-        public async Task<List<AccountModel>> GetAllAccounts()
+        // استفاده از جوین در EF Core
+        // استفاده از یک Dto جدید برای برگرداندن 
+        public async Task<List<AccountViewModel>> GetAllAccounts()
         {
             try
             {
-                var response = await _context.Accounts.ToListAsync();
+                var response = await (from a in _context.Accounts
+                                      join u in _context.Users on a.UserId equals u.UserID
+                                      select new AccountViewModel
+                                      {
+                                          AccountId = a.Id,
+                                          OwerName = u.Name + " " + u.Family,  
+                                          Balance = a.Balance
+                                      }).ToListAsync();  
                 return response;
             }
             catch (Exception ex)
             {
-                return new List<AccountModel>();
+                return new List<AccountViewModel>();
             }
         }
+
         public async Task<ResponseModel<AccountModel>> GetAccountsByUserIdAsync(
            int UserId,
            int accountType)

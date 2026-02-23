@@ -56,7 +56,7 @@ namespace BankAccountManagmentSystemApi.Controllers
             }
             return BadRequest("No record found ... ");
         }
-
+        
         [HttpGet]
         [Route("GetAccountsByUserIdAsync")]
         public async Task<IActionResult> GetAccountsByUserIdAsync([FromQuery] int UserId, [FromQuery] int accountType)

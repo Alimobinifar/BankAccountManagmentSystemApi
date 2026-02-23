@@ -61,7 +61,7 @@ namespace BankAccountManagmentSystemApi.Controllers
         [Route("GetNationalityCodeAsync")]
         public async Task<IActionResult> GetNationalityCodeAsync([FromQuery] string NationalityCode)
         {
-            var response = await _UserService.GetNationalityCodeAsync(NationalityCode);
+            var response = await _UserService.GetUsersByNationalityCodeAsync(NationalityCode);
 
             if (response != null && !response.Error)
                 return Ok(response);
