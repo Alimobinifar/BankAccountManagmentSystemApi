@@ -36,9 +36,8 @@ namespace BankAccountManagmentSystemApi.Migrations
                 name: "Transactions",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    UserId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<int>(type: "int", nullable: false),
                     Amount = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false),
                     TransactionType = table.Column<int>(type: "int", nullable: false),
                     AccountId = table.Column<int>(type: "int", nullable: false),
@@ -47,7 +46,7 @@ namespace BankAccountManagmentSystemApi.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Transactions", x => x.Id);
+                    table.PrimaryKey("PK_Transactions", x => x.UserId);
                 });
 
             migrationBuilder.CreateTable(
@@ -59,7 +58,9 @@ namespace BankAccountManagmentSystemApi.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Family = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Contact = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    NationalityCode = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    NationalityCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {

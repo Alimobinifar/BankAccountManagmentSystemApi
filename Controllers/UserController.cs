@@ -18,42 +18,45 @@ namespace BankAccountManagmentSystemApi.Controllers
 
         [HttpPost]
         [Route("Create")]
-        public async Task <IActionResult> CreateAccount([FromBody] CreateUserAccount createUserAccount)
+        public async Task <IActionResult> CreateUser([FromBody] CreateUserAccount createUserAccount)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var result = await _UserService.CreateAccount(createUserAccount);
+            var result = await _UserService.CreateUser(createUserAccount);
 
             if (!result)
-                return BadRequest("Account creation failed");
+                return BadRequest("User creation failed");
 
-            return Ok("Account has been created successfully");
+            return Ok("User has been created successfully");
         }
+
         [HttpPost]
         [Route("Update")]
-        public async Task <IActionResult> UpdateAccount([FromBody] UpdateUserAccount updateUserAccount)
+        public async Task <IActionResult> UpdateUser([FromBody] UpdateUserAccount updateUserAccount)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
-            var result = await _UserService.UpdateAccount(updateUserAccount);
+            var result = await _UserService.UpdateUser(updateUserAccount);
 
             if (!result)
                 return BadRequest("Account update failed");
 
             return Ok("Account has been updated successfully");
         }
+
         [HttpGet]
         [Route("GetAll")]
-        public async Task<IActionResult> GetAllAccounts()
+        public async Task<IActionResult> GetAllUsers()
         {
-            var response = await _UserService.GetAllAccounts();
+            var response = await _UserService.GetAllUsers();
             if (response != null)
             {
                 return Ok(response);
             }
             return BadRequest("No record found ... ");
         }
+
         [HttpGet]
         [Route("GetNationalityCodeAsync")]
         public async Task<IActionResult> GetNationalityCodeAsync([FromQuery] string NationalityCode)

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BankAccountManagmentSystemApi.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260222123701_InitialCreate1")]
-    partial class InitialCreate1
+    [Migration("20260223132436_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -102,11 +102,11 @@ namespace BankAccountManagmentSystemApi.Migrations
 
             modelBuilder.Entity("BankAccountManagmentSystemApi.Models.TransactionModel", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("UserId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserId"));
 
                     b.Property<int>("AccountId")
                         .HasColumnType("int");
@@ -124,10 +124,7 @@ namespace BankAccountManagmentSystemApi.Migrations
                     b.Property<int>("TransactionType")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
+                    b.HasKey("UserId");
 
                     b.ToTable("Transactions");
                 });

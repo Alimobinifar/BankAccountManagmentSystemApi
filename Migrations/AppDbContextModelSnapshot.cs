@@ -99,11 +99,11 @@ namespace BankAccountManagmentSystemApi.Migrations
 
             modelBuilder.Entity("BankAccountManagmentSystemApi.Models.TransactionModel", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("UserId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserId"));
 
                     b.Property<int>("AccountId")
                         .HasColumnType("int");
@@ -121,10 +121,7 @@ namespace BankAccountManagmentSystemApi.Migrations
                     b.Property<int>("TransactionType")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
+                    b.HasKey("UserId");
 
                     b.ToTable("Transactions");
                 });

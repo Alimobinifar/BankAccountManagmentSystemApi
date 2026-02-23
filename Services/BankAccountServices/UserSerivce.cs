@@ -15,7 +15,7 @@ namespace BankAccountManagmentSystemApi.Services.BankAccountServices
             _context = context;
         }
 
-        public async Task<bool> CreateAccount(CreateUserAccount createUserAccount)
+        public async Task<bool> CreateUser(CreateUserAccount createUserAccount)
         {
             try
             {
@@ -35,15 +35,19 @@ namespace BankAccountManagmentSystemApi.Services.BankAccountServices
             {
                 return false;
             }
-
         }
-        public async Task<bool> UpdateAccount(UpdateUserAccount updateUserAccount)
+ 
+        public async Task<bool> UpdateUser(UpdateUserAccount updateUserAccount)
         {
             try
             {
                 var response = _context.Users.Where(b => b.UserID == updateUserAccount.UserID).FirstOrDefault();
                 if (response != null)
                 {
+                    User user = new User();
+                    user.Name = updateUserAccount.Name;
+                    user.Family = updateUserAccount.Family;
+                    user.Contact = updateUserAccount.Contact;
                     await _context.SaveChangesAsync();
                     return true;
                 }
@@ -55,27 +59,33 @@ namespace BankAccountManagmentSystemApi.Services.BankAccountServices
             }
         }
 
-        public async Task<List<User>> GetAllAccounts()
+        public async Task<ResponseModel<User>> GetAllUsers()
         {
+            ResponseModel<User> res = new ResponseModel<User>();
             try
             {
                 var response = await _context.Users.ToListAsync();
-                return response;
+                res.List = response;
+                res.Msg = "List retrived successfully";
             }
             catch (Exception ex)
             {
-                return new List<User>();
+                res.Error = true;
+                res.Msg = ex.InnerException.Message.ToString();
+                res.StatusCode = 500;
+                return res;
+
             }
+            return res;
         }
-        public async Task<ResponseModel<User>> GetNationalityCodeAsync(string NationalityCode)
+
+        public async Task<ResponseModel<User>> GetUsersByNationalityCodeAsync(string NationalityCode)
         {
             ResponseModel<User> result = new ResponseModel<User>();
             try
             {
                 var query = _context.Users
                     .Where(a => a.NationalityCode == NationalityCode);
-
-
                 result.List = await query.ToListAsync();
                 result.Msg = "Accounts retrieved successfully.";
                 result.Error = false;

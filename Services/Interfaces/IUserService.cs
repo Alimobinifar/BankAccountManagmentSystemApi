@@ -5,10 +5,10 @@ namespace BankAccountManagmentSystemApi.Services.Interfaces
 {
     public interface IUserService
     {
-        public Task<bool> CreateAccount(CreateUserAccount createUserAccount);
-        public Task<bool> UpdateAccount(UpdateUserAccount updateUserAccount);
-        public Task<List<User>> GetAllAccounts();
-        public Task<ResponseModel<User>> GetNationalityCodeAsync(string NationalityCode);
+        public Task<bool> CreateUser(CreateUserAccount createUserAccount);
+        public Task<bool> UpdateUser(UpdateUserAccount updateUserAccount);
+        public Task<ResponseModel<User>> GetAllUsers();
+        public Task<ResponseModel<User>> GetUsersByNationalityCodeAsync(string NationalityCode);
 
 
     }
